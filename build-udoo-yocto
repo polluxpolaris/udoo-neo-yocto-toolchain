@@ -1,0 +1,3 @@
+pushd ~/Workspace/toolchain/build
+MACHINE=udooneo bitbake udoo-image-full-cmdline
+popd

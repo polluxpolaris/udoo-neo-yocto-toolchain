@@ -1,0 +1,40 @@
+read -p "Configuring git, enter email address:" usr_email
+read -p "Enter name:" usr_name
+#TODO: Escape the quotes so the name can be used
+
+#create workspace
+mkdir ~/Workspace
+mkdir ~/Workspace/udoo
+mkdir ~/Workspace/udoo/udoo-community-bsp
+cd ~/Workspace/udoo/udoo-community-bsp
+
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt -y update
+sudo apt -y upgrade
+sudo apt -y install texinfo gawk chrpath vim git curl python3.8 python-pip
+#install vsc
+sudo apt -y install software-properties-common apt-transport-https wget
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt -y update
+sudo apt -y install code
+
+#configure git
+git config --global user.email $usr_email
+git config --global user.name $usr_name
+
+#install repo
+mkdir ~/bin
+curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+chmod a+x ~/bin/repo
+
+#download udoo yocto 
+repo init -u https://github.com/graugans/fsl-community-bsp-platform -b krogoth
+YES | repo sync
+
+#setup yocto environment
+yes | MACHINE=udooneo source ./setup-environment build
+
+cp ~/Workspace/toolchain/build/conf/bblayers.conf ~/Workspace/toolchain/build/conf/bblayers_orig.conf
+
+#TODO: edit the conf bblayers file using sed
