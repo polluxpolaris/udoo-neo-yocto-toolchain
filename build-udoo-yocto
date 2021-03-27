@@ -1,3 +1,7 @@
 pushd ~/Workspace/toolchain/build
 MACHINE=udooneo bitbake udoo-image-full-cmdline
 popd
+
+#TODO: Make the image
+#TODO: prep the sd card
+#TODO: write the sd card 
