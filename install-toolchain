@@ -28,7 +28,7 @@ mkdir ~/bin
 curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 chmod a+x ~/bin/repo
 
-#download udoo yocto 
+#download udoo neo yocto 
 repo init -u https://github.com/graugans/fsl-community-bsp-platform -b krogoth
 YES | repo sync
 
@@ -38,3 +38,4 @@ yes | MACHINE=udooneo source ./setup-environment build
 cp ~/Workspace/toolchain/build/conf/bblayers.conf ~/Workspace/toolchain/build/conf/bblayers_orig.conf
 
 #TODO: edit the conf bblayers file using sed
+#TODO: Set up ADT and QEMU
